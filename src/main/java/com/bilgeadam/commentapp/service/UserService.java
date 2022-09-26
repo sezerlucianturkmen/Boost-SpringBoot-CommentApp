@@ -10,6 +10,7 @@ import com.bilgeadam.commentapp.repository.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -107,13 +108,25 @@ public class UserService {
         userRepository.save(user);
         return UserMapper.INSTANCE.toUserCreateResponseDto(user);
     }
-
     public List<UserFindAllResponseDto> findAllDto() {
         List<User> userList=userRepository.findAll();
-        return userList.stream().map(user-> {
-            UserFindAllResponseDto userFindAllResponseDto=UserMapper.INSTANCE.toUserFindAllResponseDto(user);
-            return userFindAllResponseDto;
-        }).collect(Collectors.toList());
+        List<UserFindAllResponseDto> userDtoList=new ArrayList<>();
+
+        if(!userList.isEmpty()){
+           userDtoList= userList.stream().map(user-> {
+             return   UserFindAllResponseDto.builder()
+                        .name(user.getName())
+                        .surName(user.getSurname())
+                        .email(user.getEmail())
+                        .telephone(user.getTelephone())
+                        .favProducts(user.getFavProducts())
+                        .build();
+            }).collect(Collectors.toList());
+           return userDtoList;
+        }else {
+            System.out.println("Kullanici listesi boştur");
+            return null;
+        }
 
     }
 }

@@ -62,10 +62,9 @@ public class UserController {
     }
 
     @GetMapping("/findalldto")
-    public ResponseEntity<List<UserFindAllResponseDto>> findAllDto(String name , String surName, String email, String telephone, List<Long> favProducts){
+    public ResponseEntity<List<UserFindAllResponseDto>> findAllDto(){
        List<UserFindAllResponseDto> userList=userService.findAllDto();
         return ResponseEntity.ok(userList);
-
     }
 
     @GetMapping ("/findAll")
@@ -94,7 +93,6 @@ public class UserController {
     public ResponseEntity<Optional<List<User>>> endwithEmail(String value){
         return  ResponseEntity.ok(userService.endWithEmaiil(value));
     }
-
 
     @GetMapping("/login")
     public ResponseEntity<Optional<User>> login(String email,String password){
