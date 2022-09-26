@@ -7,29 +7,27 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 
-@Table(name="tbl_productcomment")
+@Table(name = "tbl_comment")
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProductComment {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(length = 500)
-    String comment;
-    LocalDate commentDate;
-    @OneToOne
-    @JoinColumn(name = "userId")
-    User user;
-    @OneToOne
-    @JoinColumn(name = "productId")
-    Product product;
+    private  String comment;
 
+    private LocalDate commentDate;
 
+    private Long productId;
+
+    private Long userId;
 
 
 }

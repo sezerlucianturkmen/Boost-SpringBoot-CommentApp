@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name="tbl_user")
 @Entity
@@ -27,4 +29,6 @@ public class User {
     String telephone;
     @Column(length = 32)
     String password;
+    @ElementCollection
+    List<Long> favProducts;
 }

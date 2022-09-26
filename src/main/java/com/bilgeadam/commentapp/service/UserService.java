@@ -1,45 +1,119 @@
 package com.bilgeadam.commentapp.service;
 
+
+import com.bilgeadam.commentapp.dto.response.UserCreateResponseDto;
+import com.bilgeadam.commentapp.dto.response.UserFindAllResponseDto;
+import com.bilgeadam.commentapp.mapper.UserMapper;
 import com.bilgeadam.commentapp.repository.IUserRepository;
+import com.bilgeadam.commentapp.repository.entity.Product;
 import com.bilgeadam.commentapp.repository.entity.User;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
+
 public class UserService {
-    private final IUserRepository userRepository;
+    @Autowired
+    private   IUserRepository userRepository;
+    @Autowired
+    private  ProductService productService;
 
-    public User save (User user){
-        return  userRepository.save(user);
-    }
-    public User update (User user){
-        return  userRepository.save(user);
-    }
-    public void delete (User user){
-        userRepository.delete(user);
-    }
-    public List<User> findAll(){
-        return userRepository.findAll();
+    public  User save(User user){
+        return userRepository.save(user);
     }
 
-    public List<User> findAllByNameOrderBy(){
+    public List<User> findAll() {
+        return  userRepository.findAll();
+    }
+
+
+    public List<User> findAllUserByOrderByName(){
+
         return userRepository.findAllByOrderByName();
+
     }
-   public Optional<List<User>> findAllOptionalByNameContainingIgnoreCase(String word){
-        return userRepository.findAllOptionalByNameContainingIgnoreCase(word);
+
+    public Optional<List<User>> containsName(String value){
+
+        return userRepository.findAllOptionalByNameContainingIgnoreCase(value);
     }
-   public Optional<List<User>> findAllOptionalByEmailEndingWith(String word){
-       return userRepository.findAllOptionalByEmailEndingWith(word);
+
+    public Optional<List<User>> containsEmaiil(String value){
+
+        return userRepository.findAllOptionalByEmailContainingIgnoreCase(value);
     }
-    public Optional<User> findOptionalByEmailAndPassword( String email, String password){
-        return userRepository.findOptionalByEmailAndPassword( email, password);
+
+    public Optional<List<User>> endWithEmaiil(String value){
+
+        return userRepository.findAllOptionalByEmailEndingWith(value);
     }
-   public  Optional<List<User>> controlPasswordLength(int num){
-        return userRepository.controlPasswordLength(num);
+
+    public Optional<User> login (String email,String password){
+
+        return userRepository.findOptionalByEmailAndPassword(email,password);
+    }
+    public Optional<User> loginNativeQuery (String email,String password){
+
+        return userRepository.findOptionalByEmailAndPassword2(email,password);
+    }
+
+    public Optional<List<User>> controlPasswordlength(int value){
+
+        return userRepository.controlPasswordlength(value);
+    }
+
+    public Optional<List<User>> controlPasswordlength2(int value){
+
+        return userRepository.controlPasswordlength2(value);
+    }
+
+    public Optional<User> addFav(Long userId, Long productId) {
+        Optional<User> user= userRepository.findById(userId);
+        Optional<Product> product= productService.findById(productId);
+
+        if (user.isPresent()&&product.isPresent()){
+            user.get().getFavProducts().add(productId);
+            return Optional.of(userRepository.save(user.get()));
+        }
+        System.out.println("Urun eklenemedi");
+        return  Optional.ofNullable(null);
+
+    }
+
+    public List<User> saveAll(List<User> users) {
+
+        return userRepository.saveAll(users);
+    }
+
+    public Optional<User> findById(Long userId) {
+
+        return  userRepository.findById(userId);
+    }
+
+    public UserCreateResponseDto saveDto(User user) {
+
+        userRepository.save(user);
+        return  UserCreateResponseDto.builder().name(user.getName()).email(user.getEmail())
+                .telephone(user.getTelephone()).surName(user.getSurname()).build();
+
+
+    }
+
+    public UserCreateResponseDto saveDto2(User user) {
+        userRepository.save(user);
+        return UserMapper.INSTANCE.toUserCreateResponseDto(user);
+    }
+
+    public List<UserFindAllResponseDto> findAllDto() {
+        List<User> userList=userRepository.findAll();
+        return userList.stream().map(user-> {
+            UserFindAllResponseDto userFindAllResponseDto=UserMapper.INSTANCE.toUserFindAllResponseDto(user);
+            return userFindAllResponseDto;
+        }).collect(Collectors.toList());
+
     }
 }

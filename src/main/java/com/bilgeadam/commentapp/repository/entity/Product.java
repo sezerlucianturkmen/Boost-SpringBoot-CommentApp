@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 @Table(name="tbl_product")
 @Entity
@@ -20,7 +21,9 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     Long id;
     String name;
-    Double price;
+    double price;
     @Column(nullable = true)
     LocalDate expirationDate;
+    @ElementCollection
+    List<Long> likes;
 }
