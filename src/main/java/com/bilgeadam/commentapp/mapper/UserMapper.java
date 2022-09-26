@@ -7,6 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring",unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UserMapper {
 
@@ -16,8 +18,8 @@ public interface UserMapper {
 
     User toUser(final  UserCreateResponseDto userCreateResponseDto);
 
-   // UserFindAllResponseDto  toUserFindAllResponseDto (final User user);
+   List<UserFindAllResponseDto>  toUserFindAllResponseDto (final List<User> userList);
 
-   // User toUser(final  UserFindAllResponseDto userFindAllResponseDto);
+  // User toUser(final  UserFindAllResponseDto userFindAllResponseDto);
 
 }

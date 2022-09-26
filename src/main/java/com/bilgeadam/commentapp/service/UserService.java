@@ -99,7 +99,7 @@ public class UserService {
 
         userRepository.save(user);
         return  UserCreateResponseDto.builder().name(user.getName()).email(user.getEmail())
-                .telephone(user.getTelephone()).surName(user.getSurname()).build();
+                .telephone(user.getTelephone()).surname(user.getSurname()).build();
 
 
     }
@@ -116,13 +116,26 @@ public class UserService {
            userDtoList= userList.stream().map(user-> {
              return   UserFindAllResponseDto.builder()
                         .name(user.getName())
-                        .surName(user.getSurname())
+                        .surname(user.getSurname())
                         .email(user.getEmail())
                         .telephone(user.getTelephone())
                         .favProducts(user.getFavProducts())
                         .build();
             }).collect(Collectors.toList());
            return userDtoList;
+        }else {
+            System.out.println("Kullanici listesi boştur");
+            return null;
+        }
+
+    }
+
+    public List<UserFindAllResponseDto> findAllDto2() {
+        List<User> userList=userRepository.findAll();
+
+        if(!userList.isEmpty()){
+
+            return UserMapper.INSTANCE.toUserFindAllResponseDto(userList);
         }else {
             System.out.println("Kullanici listesi boştur");
             return null;

@@ -98,8 +98,12 @@ public class ProductController {
 
     @GetMapping("/savedto")
     public ResponseEntity<ProductCreateResponseDto> saveDto(String name,Double price,String expirationDate){
-        ProductCreateResponseDto product=productService.saveDto(Product.builder().name(name).price(price).
-                expirationDate(LocalDate.parse(expirationDate)).build());
+        ProductCreateResponseDto product=productService.saveDto(Product
+                .builder()
+                .name(name)
+                .price(price)
+                .expirationDate(LocalDate.parse(expirationDate))
+                .build());
 
         return ResponseEntity.ok(product);
 

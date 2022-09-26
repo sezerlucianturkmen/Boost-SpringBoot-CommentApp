@@ -14,7 +14,7 @@ import java.util.List;
 @Builder
 public class UserFindAllResponseDto {
     private String name;
-    private String surName;
+    private String surname;
     private String email;
     private  String telephone;
     @ElementCollection

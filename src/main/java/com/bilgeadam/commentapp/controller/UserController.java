@@ -66,6 +66,11 @@ public class UserController {
        List<UserFindAllResponseDto> userList=userService.findAllDto();
         return ResponseEntity.ok(userList);
     }
+    @GetMapping("/findalldto2")
+    public ResponseEntity<List<UserFindAllResponseDto>> findAllDto2(){
+        List<UserFindAllResponseDto> userList=userService.findAllDto2();
+        return ResponseEntity.ok(userList);
+    }
 
     @GetMapping ("/findAll")
     public ResponseEntity<List<User>> findAll(){
