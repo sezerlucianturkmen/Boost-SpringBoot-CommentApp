@@ -1,8 +1,10 @@
 package com.bilgeadam.commentapp.controller;
 
-
+import com.bilgeadam.commentapp.dto.request.UserCreateRequestDto;
 import com.bilgeadam.commentapp.dto.response.UserCreateResponseDto;
 import com.bilgeadam.commentapp.dto.response.UserFindAllResponseDto;
+import com.bilgeadam.commentapp.exception.CommentAppManagerException;
+import com.bilgeadam.commentapp.exception.ErrorType;
 import com.bilgeadam.commentapp.repository.IUserRepository;
 import com.bilgeadam.commentapp.repository.entity.User;
 import com.bilgeadam.commentapp.service.UserService;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,16 +37,30 @@ public class UserController {
 
 
     @GetMapping("/save")
-    public ResponseEntity<User> save(String name , String surName, String email,String telephone,String password){
-        User user=userService.save(User.builder().name(name).surname(surName).
-                telephone(telephone).email(email).password(password).build());
-        return ResponseEntity.ok(user);
+    public ResponseEntity<User> save(String name , String surName, String email, String telephone, String password, LocalDate date){
+        try {
+            User user=userService.save(User.builder().name(name).surName(surName).
+                    telephone(telephone).email(email).password(password).createdDate(date).build());
+            return ResponseEntity.ok(user);
+        }catch (Exception e){
+
+            System.out.println(e.getMessage());
+            throw  new RuntimeException();
+        }
+
+    }
+    @GetMapping("/savewithrequest")
+    public ResponseEntity<UserCreateResponseDto> save(UserCreateRequestDto dto){
+
+        return ResponseEntity.ok(userService.saveWithRequestDto(dto));
+
+
 
     }
 
     @GetMapping("/savedto")
     public ResponseEntity<UserCreateResponseDto> saveDto(String name , String surName, String email,String telephone,String password){
-        UserCreateResponseDto user=userService.saveDto(User.builder().name(name).surname(surName).
+        UserCreateResponseDto user=userService.saveDto(User.builder().name(name).surName(surName).
                 telephone(telephone).email(email).password(password).build());
 
 
@@ -53,7 +70,7 @@ public class UserController {
 
     @GetMapping("/savedto2")
     public ResponseEntity<UserCreateResponseDto> saveDto2(String name , String surName, String email,String telephone,String password){
-        UserCreateResponseDto user=userService.saveDto2(User.builder().name(name).surname(surName).
+        UserCreateResponseDto user=userService.saveDto2(User.builder().name(name).surName(surName).
                 telephone(telephone).email(email).password(password).build());
 
 
@@ -61,21 +78,15 @@ public class UserController {
 
     }
 
-    @GetMapping("/findalldto")
-    public ResponseEntity<List<UserFindAllResponseDto>> findAllDto(){
-       List<UserFindAllResponseDto> userList=userService.findAllDto();
-        return ResponseEntity.ok(userList);
-    }
-    @GetMapping("/findalldto2")
-    public ResponseEntity<List<UserFindAllResponseDto>> findAllDto2(){
-        List<UserFindAllResponseDto> userList=userService.findAllDto2();
-        return ResponseEntity.ok(userList);
-    }
-
     @GetMapping ("/findAll")
     public ResponseEntity<List<User>> findAll(){
 
         return ResponseEntity.ok(userService.findAll()) ;
+    }
+    @GetMapping ("/findalldto")
+    public ResponseEntity<List<UserFindAllResponseDto>> findAllDto(){
+
+        return ResponseEntity.ok(userService.findAllDto()) ;
     }
 
     @GetMapping("/orderbyname")
@@ -98,6 +109,7 @@ public class UserController {
     public ResponseEntity<Optional<List<User>>> endwithEmail(String value){
         return  ResponseEntity.ok(userService.endWithEmaiil(value));
     }
+
 
     @GetMapping("/login")
     public ResponseEntity<Optional<User>> login(String email,String password){

@@ -1,5 +1,7 @@
 package com.bilgeadam.commentapp.mapper;
 
+
+import com.bilgeadam.commentapp.dto.request.UserCreateRequestDto;
 import com.bilgeadam.commentapp.dto.response.UserCreateResponseDto;
 import com.bilgeadam.commentapp.dto.response.UserFindAllResponseDto;
 import com.bilgeadam.commentapp.repository.entity.User;
@@ -14,12 +16,14 @@ public interface UserMapper {
 
     UserMapper INSTANCE= Mappers.getMapper(UserMapper.class);
 
+
     UserCreateResponseDto toUserCreateResponseDto(final User user);
 
     User toUser(final  UserCreateResponseDto userCreateResponseDto);
 
-   List<UserFindAllResponseDto>  toUserFindAllResponseDto (final List<User> userList);
+    List<UserFindAllResponseDto> toUserFindAllResponseDto(final List<User> users);
 
-  // User toUser(final  UserFindAllResponseDto userFindAllResponseDto);
+
+    User toUser(final UserCreateRequestDto requestDto);
 
 }

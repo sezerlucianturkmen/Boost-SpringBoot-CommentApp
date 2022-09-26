@@ -1,5 +1,6 @@
 package com.bilgeadam.commentapp.controller;
 
+import com.bilgeadam.commentapp.dto.request.ProductCommentCreateRequestDto;
 import com.bilgeadam.commentapp.repository.entity.ProductComment;
 import com.bilgeadam.commentapp.service.ProductCommentService;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,12 @@ public class ProductCommentController {
                 .build());
 
         return ResponseEntity.ok(productComment);
+    }
+
+    @GetMapping("savewithrequest")
+    public  ResponseEntity<ProductComment> saveWithRequest(ProductCommentCreateRequestDto dto){
+
+        return  ResponseEntity.ok( productCommentService.saveWithRequest(dto));
     }
 
     @GetMapping("/findAll")

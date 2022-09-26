@@ -1,12 +1,10 @@
 package com.bilgeadam.commentapp.service;
 
-
+import com.bilgeadam.commentapp.dto.request.ProductCreateRequestDto;
 import com.bilgeadam.commentapp.dto.response.ProductCreateResponseDto;
 import com.bilgeadam.commentapp.mapper.ProductMapper;
-import com.bilgeadam.commentapp.mapper.UserMapper;
 import com.bilgeadam.commentapp.repository.IProductRepository;
 import com.bilgeadam.commentapp.repository.entity.Product;
-import com.bilgeadam.commentapp.repository.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -86,18 +84,28 @@ public class ProductService {
 
             return  product;
         }
-        System.out.println("Ürün bulunamadý");
+        System.out.println("Urun bulunamadi");
         return Optional.ofNullable(null);
 
     }
+
     public List<Product> saveAll(List<Product> products) {
 
         return productRepository.saveAll(products);
     }
 
-
     public ProductCreateResponseDto saveDto(Product product) {
+
         productRepository.save(product);
+
         return ProductMapper.INSTANCE.toProductCreateResponseDto(product);
+
+    }
+
+    public ProductCreateResponseDto saveWithRequest(ProductCreateRequestDto dto) {
+        Product product=ProductMapper.INSTANCE.toProduct(dto);
+        productRepository.save(product);
+        return  ProductMapper.INSTANCE.toProductCreateResponseDto(product);
+
     }
 }

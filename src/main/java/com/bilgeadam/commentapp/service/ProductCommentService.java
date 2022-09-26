@@ -1,5 +1,7 @@
 package com.bilgeadam.commentapp.service;
 
+import com.bilgeadam.commentapp.dto.request.ProductCommentCreateRequestDto;
+import com.bilgeadam.commentapp.mapper.ProductCommentMapper;
 import com.bilgeadam.commentapp.repository.IProductCommentRepository;
 import com.bilgeadam.commentapp.repository.entity.ProductComment;
 import lombok.RequiredArgsConstructor;
@@ -98,5 +100,14 @@ public class ProductCommentService {
     public List<ProductComment> saveAll(List<ProductComment> productComments) {
 
         return productCommentRepository.saveAll(productComments);
+    }
+
+    public ProductComment saveWithRequest(ProductCommentCreateRequestDto dto) {
+
+        ProductComment productComment= ProductCommentMapper.INSTANCE.toProductComment(dto);
+
+        return   productCommentRepository.save(productComment);
+
+
     }
 }

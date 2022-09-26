@@ -17,7 +17,6 @@ public class UserFindAllResponseDto {
     private String surname;
     private String email;
     private  String telephone;
-    @ElementCollection
     private List<Long> favProducts;
 
 

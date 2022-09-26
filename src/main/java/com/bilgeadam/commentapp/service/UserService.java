@@ -1,8 +1,10 @@
 package com.bilgeadam.commentapp.service;
 
-
+import com.bilgeadam.commentapp.dto.request.UserCreateRequestDto;
 import com.bilgeadam.commentapp.dto.response.UserCreateResponseDto;
 import com.bilgeadam.commentapp.dto.response.UserFindAllResponseDto;
+import com.bilgeadam.commentapp.exception.CommentAppManagerException;
+import com.bilgeadam.commentapp.exception.ErrorType;
 import com.bilgeadam.commentapp.mapper.UserMapper;
 import com.bilgeadam.commentapp.repository.IUserRepository;
 import com.bilgeadam.commentapp.repository.entity.Product;
@@ -10,10 +12,8 @@ import com.bilgeadam.commentapp.repository.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 
@@ -99,7 +99,7 @@ public class UserService {
 
         userRepository.save(user);
         return  UserCreateResponseDto.builder().name(user.getName()).email(user.getEmail())
-                .telephone(user.getTelephone()).surname(user.getSurname()).build();
+                .surName(user.getSurName()).build();
 
 
     }
@@ -108,38 +108,21 @@ public class UserService {
         userRepository.save(user);
         return UserMapper.INSTANCE.toUserCreateResponseDto(user);
     }
-    public List<UserFindAllResponseDto> findAllDto() {
-        List<User> userList=userRepository.findAll();
-        List<UserFindAllResponseDto> userDtoList=new ArrayList<>();
 
-        if(!userList.isEmpty()){
-           userDtoList= userList.stream().map(user-> {
-             return   UserFindAllResponseDto.builder()
-                        .name(user.getName())
-                        .surname(user.getSurname())
-                        .email(user.getEmail())
-                        .telephone(user.getTelephone())
-                        .favProducts(user.getFavProducts())
-                        .build();
-            }).collect(Collectors.toList());
-           return userDtoList;
-        }else {
-            System.out.println("Kullanici listesi boştur");
-            return null;
-        }
+    public List<UserFindAllResponseDto> findAllDto() {
+
+
+        return UserMapper.INSTANCE.toUserFindAllResponseDto(userRepository.findAll());
 
     }
 
-    public List<UserFindAllResponseDto> findAllDto2() {
-        List<User> userList=userRepository.findAll();
+    public UserCreateResponseDto saveWithRequestDto(UserCreateRequestDto dto) {
 
-        if(!userList.isEmpty()){
 
-            return UserMapper.INSTANCE.toUserFindAllResponseDto(userList);
-        }else {
-            System.out.println("Kullanici listesi boştur");
-            return null;
-        }
+        User user = UserMapper.INSTANCE.toUser(dto);
+        userRepository.save(user);
+        return UserMapper.INSTANCE.toUserCreateResponseDto(user);
+
 
     }
 }

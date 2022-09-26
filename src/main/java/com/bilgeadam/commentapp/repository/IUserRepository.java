@@ -1,6 +1,5 @@
 package com.bilgeadam.commentapp.repository;
 
-
 import com.bilgeadam.commentapp.repository.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -34,3 +33,4 @@ public interface IUserRepository extends JpaRepository<User,Long> {
     Optional<List<User>> controlPasswordlength2(@Param("value") int value);
 
 }
+

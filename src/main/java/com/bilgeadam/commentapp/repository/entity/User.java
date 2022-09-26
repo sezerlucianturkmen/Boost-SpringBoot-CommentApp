@@ -1,34 +1,39 @@
 package com.bilgeadam.commentapp.repository.entity;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 
-@Table(name="tbl_user")
+
 @Entity
+@Table(name = "tbl_user")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private   Long id;
     @Column(length = 50)
-    String name;
+    private  String name;
     @Column(length = 50)
-    String surname;
+    private  String surName;
     @Column(length = 50)
-    String email;
+    private  String email;
     @Column(length = 15)
-    String telephone;
+    private String telephone;
     @Column(length = 32)
-    String password;
+    private String password;
+
+    private LocalDate createdDate;
     @ElementCollection
     List<Long> favProducts;
+
 }
