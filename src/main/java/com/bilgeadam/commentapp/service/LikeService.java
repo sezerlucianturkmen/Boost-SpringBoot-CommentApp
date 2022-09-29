@@ -1,6 +1,6 @@
 package com.bilgeadam.commentapp.service;
 
-import com.bilgeadam.commentapp.dto.request.LikeCreateRequestDto;
+import com.bilgeadam.commentapp.mapper.request.LikeCreateRequestDto;
 import com.bilgeadam.commentapp.exception.CommentAppManagerException;
 import com.bilgeadam.commentapp.exception.ErrorType;
 import com.bilgeadam.commentapp.mapper.LikeMapper;
@@ -9,10 +9,8 @@ import com.bilgeadam.commentapp.repository.entity.Like;
 import com.bilgeadam.commentapp.repository.entity.Product;
 import com.bilgeadam.commentapp.repository.entity.User;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
@@ -30,7 +28,7 @@ public class LikeService {
 
         if (userDb.isEmpty()){
 
-            throw  new CommentAppManagerException(ErrorType.USER_NOT_FOUND,"Kullanýcý Bulunamadý");
+            throw  new CommentAppManagerException(ErrorType.USER_NOT_FOUND,"Kullanici Bulunamad�");
 
         }
         if (productDb.isEmpty()){
@@ -47,7 +45,6 @@ public class LikeService {
 
 
     }
-
 
 
 }

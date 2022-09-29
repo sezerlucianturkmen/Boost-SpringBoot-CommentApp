@@ -1,4 +1,4 @@
-package com.bilgeadam.commentapp.dto.request;
+package com.bilgeadam.commentapp.mapper.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

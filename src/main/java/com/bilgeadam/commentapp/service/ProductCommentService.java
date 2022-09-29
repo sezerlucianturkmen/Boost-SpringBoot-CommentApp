@@ -1,6 +1,6 @@
 package com.bilgeadam.commentapp.service;
 
-import com.bilgeadam.commentapp.dto.request.ProductCommentCreateRequestDto;
+import com.bilgeadam.commentapp.mapper.request.ProductCommentCreateRequestDto;
 import com.bilgeadam.commentapp.mapper.ProductCommentMapper;
 import com.bilgeadam.commentapp.repository.IProductCommentRepository;
 import com.bilgeadam.commentapp.repository.entity.ProductComment;

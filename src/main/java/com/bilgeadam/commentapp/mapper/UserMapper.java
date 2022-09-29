@@ -1,7 +1,8 @@
 package com.bilgeadam.commentapp.mapper;
 
 
-import com.bilgeadam.commentapp.dto.request.UserCreateRequestDto;
+import com.bilgeadam.commentapp.mapper.request.LoginRequestDto;
+import com.bilgeadam.commentapp.mapper.request.UserCreateRequestDto;
 import com.bilgeadam.commentapp.dto.response.UserCreateResponseDto;
 import com.bilgeadam.commentapp.dto.response.UserFindAllResponseDto;
 import com.bilgeadam.commentapp.repository.entity.User;
@@ -26,4 +27,5 @@ public interface UserMapper {
 
     User toUser(final UserCreateRequestDto requestDto);
 
+    User toUserLogin(final LoginRequestDto loginRequestDto);
 }

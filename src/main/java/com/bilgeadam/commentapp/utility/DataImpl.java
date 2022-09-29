@@ -3,6 +3,7 @@ package com.bilgeadam.commentapp.utility;
 import com.bilgeadam.commentapp.repository.entity.Product;
 import com.bilgeadam.commentapp.repository.entity.ProductComment;
 import com.bilgeadam.commentapp.repository.entity.User;
+import com.bilgeadam.commentapp.repository.enums.EUserType;
 import com.bilgeadam.commentapp.service.ProductCommentService;
 import com.bilgeadam.commentapp.service.ProductService;
 import com.bilgeadam.commentapp.service.UserService;
@@ -47,8 +48,9 @@ public class DataImpl {
                 surName("Gr").password("123").telephone("123").build();
         User user4= User.builder().email("didem@gmail.com").name("Didem").
                 surName("Sönmez").password("123").telephone("123").build();
-
-        userService.saveAll(List.of(user,user1,user2,user3,user4));
+        User user5= User.builder().email("admin@gmail.com").name("Mustafa").
+                surName("Öztürk").userType(EUserType.ADMIN).password("admin").telephone("123").build();
+        userService.saveAll(List.of(user,user1,user2,user3,user4,user5));
     }
 
     public  void createproduct(){

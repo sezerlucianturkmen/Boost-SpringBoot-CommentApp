@@ -1,6 +1,7 @@
 package com.bilgeadam.commentapp.repository.entity;
 
 
+import com.bilgeadam.commentapp.repository.enums.EUserType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,7 +32,9 @@ public class User {
     private String telephone;
     @Column(length = 32)
     private String password;
-
+    @Builder.Default
+    @Enumerated(EnumType.STRING)
+    private EUserType userType= EUserType.USER;
     private LocalDate createdDate;
     @ElementCollection
     List<Long> favProducts;

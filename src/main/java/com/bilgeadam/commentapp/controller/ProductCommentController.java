@@ -1,6 +1,6 @@
 package com.bilgeadam.commentapp.controller;
 
-import com.bilgeadam.commentapp.dto.request.ProductCommentCreateRequestDto;
+import com.bilgeadam.commentapp.mapper.request.ProductCommentCreateRequestDto;
 import com.bilgeadam.commentapp.repository.entity.ProductComment;
 import com.bilgeadam.commentapp.service.ProductCommentService;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 /**
  *
