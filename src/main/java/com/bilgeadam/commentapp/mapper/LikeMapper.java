@@ -1,5 +1,6 @@
 package com.bilgeadam.commentapp.mapper;
-import com.bilgeadam.commentapp.mapper.request.LikeCreateRequestDto;
+
+import com.bilgeadam.commentapp.dto.request.LikeCreateRequestDto;
 import com.bilgeadam.commentapp.repository.entity.Like;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

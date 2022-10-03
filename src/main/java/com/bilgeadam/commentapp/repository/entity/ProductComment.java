@@ -1,5 +1,6 @@
 package com.bilgeadam.commentapp.repository.entity;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,12 +23,16 @@ public class ProductComment {
 
     @Column(length = 500)
     private  String comment;
+
     @Builder.Default
     private LocalDate commentDate=LocalDate.now();
-
-    private Long productId;
-
-    private Long userId;
+    // product comment ile produc arası ilişki
+    @ManyToOne
+//    @JoinColumn(name = "product_id" ,referencedColumnName = "id")
+    private Product product;
+    @ManyToOne
+//    @JoinColumn(name = "user_id" ,referencedColumnName = "id")
+    private User user;
 
 
 }

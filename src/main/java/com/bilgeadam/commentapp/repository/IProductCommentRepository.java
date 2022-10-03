@@ -28,6 +28,6 @@ public interface IProductCommentRepository extends JpaRepository<ProductComment,
 
     @Query("select pc from ProductComment pc where length(pc.comment)>?1")
     Optional<List<ProductComment>> findByCommnetLength(int value);
-    @Query("select pc from ProductComment pc where pc.comment like ('%çok güzel%')")
+    @Query("select pc from ProductComment pc where pc.comment like ('%begendim%')")
     Optional<List<ProductComment>> findByCommnetContainCokGuzel();
 }

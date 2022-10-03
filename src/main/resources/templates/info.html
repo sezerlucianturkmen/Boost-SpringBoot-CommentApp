@@ -5,18 +5,38 @@
     <title>Title</title>
     <!-- CSS only -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
+<div class="container mt-4">
+    <div class="d-flex justify-content-center">
 
-<h1 class="text-bg-info text-center "> Kullanıcı Kayıt Bilgilendirme </h1>
-<div class="bg-info text-white">
-    <label th:text="${'İsim: '+ user.name}"  ></label><br>
-    <label th:text="${'Soyisim: '+user.surName}"></label><br>
-    <label>Kullanıcı Database e kaydedildi</label>
+        <div class="card p-3"  style="width: 18rem;">
+            <img class="card-img-top" th:src="@{'https://avatars.dicebear.com/api/bottts/'+${user.id}+'.svg'}" alt="Card image cap">
+            <div class="card-body">
+                <h5  th:text="${user.name+' '+user.surName }" class="card-title text-info text-center"></h5>
+
+                <label th:text="${'Tel: '+user.telephone}"></label>
+                <label th:text="${ 'email: '+user.email}"></label>
+                <label th:text="${'Kullanıcı Türü: '+user.userType}"></label>
+            </div>
+            <h5 class="text-center text-info" >Favori ürünler</h5>
+            <ul   class="list-group list-group-flush">
+                <div th:each="fav:${products}">
+                    <li th:text="${fav.name}"class="list-group-item"></li>
+                </div>
+
+
+            </ul>
+
+        </div>
+
+    </div>
+
+
+
 </div>
-
-<div class="bg-danger" >xxx</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
 </body>

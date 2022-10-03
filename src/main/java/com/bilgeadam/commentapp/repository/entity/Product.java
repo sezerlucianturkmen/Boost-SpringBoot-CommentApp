@@ -1,29 +1,35 @@
 package com.bilgeadam.commentapp.repository.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.Set;
 
-@Table(name="tbl_product")
+@Table(name = "tbl_product")
 @Entity
+@Getter
+@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-@Builder
 public class Product {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    Long id;
-    String name;
-    double price;
-    @Column(nullable = true)
-    LocalDate expirationDate;
-    @ElementCollection
-    List<Long> likes;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private  double price;
+    private LocalDate expirationDate;
+    @JsonIgnore
+    @OneToMany(mappedBy = "product" )
+    private Set<Like> likes;
+    @JsonIgnore
+    @OneToMany(mappedBy = "product")
+    private List<ProductComment> comments;
+
 }

@@ -1,8 +1,11 @@
 package com.bilgeadam.commentapp.controller;
 
-import com.bilgeadam.commentapp.mapper.request.UserCreateRequestDto;
+import com.bilgeadam.commentapp.dto.request.UserCreateRequestDto;
 import com.bilgeadam.commentapp.dto.response.UserCreateResponseDto;
 import com.bilgeadam.commentapp.dto.response.UserFindAllResponseDto;
+import com.bilgeadam.commentapp.exception.CommentAppManagerException;
+import com.bilgeadam.commentapp.exception.ErrorType;
+import com.bilgeadam.commentapp.repository.IUserRepository;
 import com.bilgeadam.commentapp.repository.entity.User;
 import com.bilgeadam.commentapp.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -34,10 +37,10 @@ public class UserController {
 
 
     @GetMapping("/save")
-    public ResponseEntity<User> save(String name , String surName, String email, String telephone, String password, LocalDate date){
+    public ResponseEntity<User> save(String name , String surName, String email, String telephone, String password){
         try {
             User user=userService.save(User.builder().name(name).surName(surName).
-                    telephone(telephone).email(email).password(password).createdDate(date).build());
+                    telephone(telephone).email(email).password(password).build());
             return ResponseEntity.ok(user);
         }catch (Exception e){
 
@@ -70,9 +73,7 @@ public class UserController {
         UserCreateResponseDto user=userService.saveDto2(User.builder().name(name).surName(surName).
                 telephone(telephone).email(email).password(password).build());
 
-
         return ResponseEntity.ok(user);
-
     }
 
     @GetMapping ("/findAll")

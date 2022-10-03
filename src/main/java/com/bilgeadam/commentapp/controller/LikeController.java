@@ -1,6 +1,6 @@
 package com.bilgeadam.commentapp.controller;
 
-import com.bilgeadam.commentapp.mapper.request.LikeCreateRequestDto;
+import com.bilgeadam.commentapp.dto.request.LikeCreateRequestDto;
 import com.bilgeadam.commentapp.repository.entity.Like;
 
 import com.bilgeadam.commentapp.service.LikeService;
@@ -11,6 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDate;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -27,7 +30,7 @@ public class LikeController {
     @GetMapping("/tolike")
     public ResponseEntity<Like> toLike(LikeCreateRequestDto dto){
 
-        return  ResponseEntity.ok(likeService.save(dto)) ;
+        return  ResponseEntity.ok(likeService.toLike(dto)) ;
 
     }
 

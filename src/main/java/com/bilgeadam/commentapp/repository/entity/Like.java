@@ -1,30 +1,36 @@
 package com.bilgeadam.commentapp.repository.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 
-@Table(name="tbl_like")
+/**
+ * userid
+ * product id
+ * likedDate
+ *
+ */
+
 @Entity
-@AllArgsConstructor
+@Table(name = "like_tbl")
+@Getter
+@Setter
 @NoArgsConstructor
-@Data
+@AllArgsConstructor
 @Builder
 public class Like {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    Long id;
-    LocalDate likedDate;
-    Long userId;
-    Long productId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private  Long id;
+    @ManyToOne
+//    @JoinColumn(name = "user_id" ,referencedColumnName = "id")
+    private  User user;
+    @ManyToOne
+//    @JoinColumn(name = "product_id" ,referencedColumnName = "id")
+    private  Product product;
 
-
-
+    @Builder.Default
+    private LocalDate likedDate=LocalDate.now();
 
 }

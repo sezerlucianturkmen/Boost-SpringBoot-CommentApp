@@ -1,7 +1,6 @@
 package com.bilgeadam.commentapp.repository.entity;
 
-
-import com.bilgeadam.commentapp.repository.enums.EUserType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +10,11 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
-
+/*
+ * favProductlar ekleyelim bunları id bazında tutacağız
+ * /* user id ve product id ile favorilere urun ekleyen bir metot yazalim bunun da end pointini yazalim
+ *
+ * */
 @Entity
 @Table(name = "tbl_user")
 @AllArgsConstructor
@@ -34,9 +37,17 @@ public class User {
     private String password;
     @Builder.Default
     @Enumerated(EnumType.STRING)
-    private EUserType userType= EUserType.USER;
-    private LocalDate createdDate;
+    private EUserType userType=EUserType.USER;
     @ElementCollection
     List<Long> favProducts;
+
+    @JsonIgnore
+    @OneToMany( mappedBy = "user")
+    private List<Like> likes;
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<ProductComment> comments;
+
+
 
 }
